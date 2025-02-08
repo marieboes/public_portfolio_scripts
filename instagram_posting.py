@@ -17,15 +17,12 @@ import time
 from pyairtable import api
 from datetime import datetime, timezone
 
-# Load environment variables from .env file
 load_dotenv()
 
-# Constants for Airtable
 AIRTABLE_API_KEY = os.getenv("AIRTABLE_API_KEY")
 AIRTABLE_BASE_ID = 'AIRTABLE_BASE_ID'
 AIRTABLE_TABLE_ID = 'AIRTABLE_TABLE_NAME'
 
-# Set up Airtable connection
 airtable_api = api.Api(AIRTABLE_API_KEY)
 table = airtable_api.table(AIRTABLE_BASE_ID, AIRTABLE_TABLE_ID)
 
@@ -34,12 +31,10 @@ def fetch_ready_to_publish_records():
     today_date_str = datetime.now(timezone.utc).strftime('%Y-%m-%d')
     formula = f"AND(NOT({{property}} = ''), {{state}} = 'READY_TO_PUBLISH', FIND('INSTAGRAM', {{platform}}), IS_SAME({{publish_date}}, DATESTR('{today_date_str}'), 'day'),{{external_instagram_post_id}} = '')"
 
-    # Log the formulated query
     print(f"Query Formula: {formula}")
 
     records = table.all(formula=formula)
 
-    # Log each record fetched from Airtable
     print(f"Number of records fetched: {len(records)}")
     for record in records:
         print(f"Record ID: {record['id']}, Fields: {record['fields']}")
@@ -66,7 +61,6 @@ def get_post_details_from_record(record):
     return details
 
 def update_airtable_record_with_media_id(record_id, media_id):
-    # Update Airtable record with Instagram media ID
     try:
         table.update(record_id, {"external_instagram_post_id": media_id})
         print(f"Airtable record updated with media ID: {media_id}")
