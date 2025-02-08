@@ -5,19 +5,6 @@ Description:
     while checking for SEO-related indexing directives. Specifically, it identifies URLs that are set with the
     "noindex" directive, indicating that they should not be indexed by search engines. Here's how the script works:
 
-    1. **Environment Configuration**: The script uses environment variables for configuration management,
-       loading sitemap URLs from a specified environment variable using the dotenv library. This ensures flexibility
-       and security, allowing easy adaptation for different environments.
-
-    2. **Fetching URLs from Sitemap**: It fetches and parses the sitemap at each specified URL, extracting only the
-       HTML page links and filtering out common file types such as images, documents, and video files that are not
-       typically subject to search engine indexing.
-
-    3. **Checking Noindex Status**: For each extracted URL, the script performs an HTTP request to determine its
-       "indexability." It checks both the X-Robots-Tag in the HTTP headers and the 'robots' meta tags within the
-       HTML body for any "noindex" directives.
-
-    4. **Output Results**: The script compiles a list of URLs that are marked with "noindex" and prints these.
                © [2025] [Boes Marie]. All rights reserved.
 """
 
