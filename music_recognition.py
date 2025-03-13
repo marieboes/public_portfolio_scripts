@@ -34,15 +34,12 @@ async def rename_music_files(folder_path):
                 new_filename = f"{title}.mp3"
                 new_file_path = os.path.join(folder_path, new_filename)
 
-                # Update metadata
                 update_metadata(file_path, artist, title)
 
-                # Rename the file
                 os.rename(file_path, new_file_path)
                 print(f"Renamed '{filename}' to '{new_filename}'.")
             else:
                 print(f"Failed to identify '{filename}'.")
 
-# Run the async function
 import asyncio
 asyncio.run(rename_music_files(r'C:\Users\marie\Documents\Music'))
